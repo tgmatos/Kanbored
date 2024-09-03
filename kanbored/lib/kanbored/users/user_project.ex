@@ -3,7 +3,7 @@ defmodule Kanbored.Models.UserProject do
   import Ecto.Changeset
   alias Kanbored.Models.{User, Project}
 
-  @primary_key  false
+  @primary_key false
   @foreign_key_type :binary_id
 
   schema "users_projects" do
@@ -15,5 +15,6 @@ defmodule Kanbored.Models.UserProject do
     user_project
     |> cast(params, [:user_id, :project_id])
     |> validate_required([:user_id, :project_id])
+    |> unique_constraint([:user_id, :email_id], name: "users_projects_pkey")
   end
 end

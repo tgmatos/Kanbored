@@ -6,6 +6,7 @@ defmodule Kanbored.Models.User do
 
   @primary_key {:user_id, :binary_id, autogenerate: false}
 
+  @derive {Inspect, except: [:password]}
   schema "users" do
     field :username, :string
     field :email, :string

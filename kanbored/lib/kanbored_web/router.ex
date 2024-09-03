@@ -17,6 +17,7 @@ defmodule KanboredWeb.Router do
     scope "/project" do
       pipe_through :auth
       post "/new", ProjectController, :new_project
+      post "/delete", ProjectController, :delete_project
       post "/add", ProjectController, :add_user_to_project
       post "/remove", ProjectController, :remove_user_from_project
     end

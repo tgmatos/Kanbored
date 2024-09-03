@@ -17,6 +17,18 @@ defmodule Kanbored.Projects do
     end
   end
 
+  def delete_project(%{project_id: project_id, owner_id: owner_id}) do
+    with project when not is_nil(project) <- Repo.get_by(Project, project_id: project_id),
+         true <- project.owner_id == owner_id do
+      Repo.all(UserProject, project_id: project_id, owner_id: owner_id)
+      |> Enum.each(fn us -> Repo.delete(us) end)
+      Repo.delete(project)
+    else
+      nil -> {:error, :project_not_found}
+      :else -> {:error, :not_owner}
+    end
+  end
+
   def add_user_to_project(%{project_id: project_id, user_id: user_id}) do
     with project when not is_nil(project) <- Repo.get_by(Project, project_id: project_id),
          user when not is_nil(user) <- Repo.get_by(User, user_id: user_id) do
@@ -59,7 +71,9 @@ defmodule Kanbored.Projects do
 
   def remove_user_from_project(%{project_id: project_id, user_id: user_id}) do
     case Repo.get_by(UserProject, project_id: project_id, user_id: user_id) do
-      nil -> {:error, :user_not_found_in_project}
+      nil ->
+        {:error, :user_not_found_in_project}
+
       user_project ->
         {:ok, deleted_result} = Repo.delete(user_project)
         {:ok, deleted_result}

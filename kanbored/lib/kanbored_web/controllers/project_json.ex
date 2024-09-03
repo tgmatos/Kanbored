@@ -8,6 +8,10 @@ defmodule KanboredWeb.ProjectJSON do
     }
   end
 
+  def delete_project(conn) do
+    %{result: :ok}
+  end
+
   def add_user_to_project(%{msg: msg}) do
     %{
       project: msg.project_id,
@@ -38,5 +42,13 @@ defmodule KanboredWeb.ProjectJSON do
       project: Map.get(result, :project_id),
       user: Map.get(result, :user_id)
     }
+  end
+  
+  def project_not_found(_conn) do
+    %{error: %{reason: "Project not found"}}
+  end
+
+  def not_owner(_conn) do
+    %{error: %{reason: "You are not the owner of the project"}}
   end
 end

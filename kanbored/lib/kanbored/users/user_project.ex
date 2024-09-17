@@ -1,7 +1,7 @@
-defmodule Kanbored.Models.UserProject do
+defmodule Kanbored.UserProject do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Kanbored.Models.{User, Project}
+  alias Kanbored.{User, Project}
 
   @primary_key false
   @foreign_key_type :binary_id

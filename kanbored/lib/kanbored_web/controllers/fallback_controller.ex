@@ -7,7 +7,7 @@ defmodule KanboredWeb.FallbackController do
     |> put_view(json: KanboredWeb.ErrorJSON)
     |> render(:"401")
   end
-  
+
   def call(conn, errors) when is_list(errors) == true do
     conn
     |> put_status(400)

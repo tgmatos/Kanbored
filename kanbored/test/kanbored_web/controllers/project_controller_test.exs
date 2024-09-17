@@ -25,7 +25,7 @@ defmodule KanboredWeb.ProjectControllerTest do
     result = json_response(conn, 200)
     assert result == %{"name" => "Test Project", "description" => "Test Project"}
   end
-  
+
   test "add_user_to_project", %{conn: conn} do
     login_conn =
       post(conn, ~p"/api/user/login", %{
@@ -38,6 +38,5 @@ defmodule KanboredWeb.ProjectControllerTest do
 
     conn =
       post(conn, ~p"/api/user/", %{})
-      )
   end
 end

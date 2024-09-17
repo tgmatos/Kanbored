@@ -1,5 +1,6 @@
 defmodule KanboredWeb.Router do
   use KanboredWeb, :router
+  import Phoenix.LiveDashboard.Router
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -10,6 +11,7 @@ defmodule KanboredWeb.Router do
   end
 
   scope "/api", KanboredWeb do
+    live_dashboard "/dashboard", metrics: KanboredWeb.Telemetry
     pipe_through :api
     post "/user/register", UserController, :register
     post "/user/login", UserController, :login
@@ -17,9 +19,13 @@ defmodule KanboredWeb.Router do
     scope "/project" do
       pipe_through :auth
       post "/new", ProjectController, :new_project
-      post "/delete", ProjectController, :delete_project
-      post "/add", ProjectController, :add_user_to_project
-      post "/remove", ProjectController, :remove_user_from_project
+      get "/:project", ProjectController, :get_project
+      delete "/remove/:project", ProjectController, :remove_project
+
+      scope "/user" do
+        post "/user/add", ProjectController, :add_user_to_project
+        delete "/user/remove/:project", ProjectController, :remove_user_from_project
+      end
     end
   end
 

@@ -10,10 +10,11 @@ defmodule Kanbored.Application do
     children = [
       KanboredWeb.Telemetry,
       Kanbored.Repo,
-      {DNSCluster, query: Application.get_env(:kanbored, :dns_cluster_query) || :ignore},
+      #{DNSCluster, query: Application.get_env(:kanbored, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Kanbored.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: Kanbored.Finch},
+      {Cachex, name: :kanbored_cache},
       # Start a worker by calling: Kanbored.Worker.start_link(arg)
       # {Kanbored.Worker, arg},
       # Start to serve requests, typically the last entry

@@ -1,10 +1,11 @@
-defmodule Kanbored.Models.User do
+defmodule Kanbored.User do
   use Ecto.Schema
-  alias Kanbored.Models.{Project, UserProject}
+  alias Kanbored.{Project, UserProject, Task}
   import Ecto.Changeset
   import EctoCommons.EmailValidator
 
   @primary_key {:user_id, :binary_id, autogenerate: false}
+  @foreign_key_type :binary_id
 
   @derive {Inspect, except: [:password]}
   schema "users" do
@@ -16,6 +17,8 @@ defmodule Kanbored.Models.User do
     many_to_many :project, Project,
       join_through: UserProject,
       join_keys: [user_id: :user_id, project_id: :project_id]
+
+    has_many :tasks, Task, foreign_key: :user_id
 
     # field :profile_picture, :binary
   end

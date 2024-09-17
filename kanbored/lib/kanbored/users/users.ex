@@ -1,20 +1,14 @@
 defmodule Kanbored.Users do
-  alias Kanbored.Models.User
+  alias Kanbored.User
   alias Kanbored.Repo
 
   def register(attr \\ %{}) do
-    insert_result =
-      %User{}
-      |> User.register_changeset(attr)
-      |> Repo.insert()
-
-    case insert_result do
-      {:ok, user} ->
-        {:ok, user}
-
-      {:error, result_errors} ->
-        result_errors.errors
-        |> Enum.map(fn {_, {error, _}} -> error end)
+    %User{}
+    |> User.register_changeset(attr)
+    |> Repo.insert()
+    |> case do
+      {:ok, user} -> {:ok, user}
+      {:error, result_errors} -> result_errors.errors |> Enum.map(fn {_, {error, _}} -> error end)
     end
   end
 

@@ -1,18 +1,22 @@
 # Kanbored
 
-To start your Phoenix server:
+A Trello-like application written in Elixir with Phoenix framework.
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
-
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+## Features
+  * Link tasks which depends on other tasks.
+  * Automatically create Git branchs based on the task
+  * Categorize tasks
+  
+## TODO
+#### Models:
+- [x] users
+- [x] projects
+- [x] users_projects
+- [x] toards
+- [x] tasks
+- [x] task_types
+- [x] tags
+- [ ] tags_task
+- [ ] related_tasks
+- [ ] comments
+- [ ] attachments
